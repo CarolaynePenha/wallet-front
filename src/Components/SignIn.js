@@ -14,12 +14,6 @@ export default function SignIn() {
   const { token, setToken } = useContext(TokenContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // if (token) {
-    //   navigate("/wallet");
-    // }
-  }, []);
-
   async function post(event) {
     event.preventDefault();
     setButtonState(true);
@@ -31,14 +25,14 @@ export default function SignIn() {
       console.log("token: ", response);
       setToken(data.token);
 
-      //   localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token);
 
       navigate("/wallet");
     } catch (err) {
       console.log(err.response);
       setButtonState(false);
       setButtonLoading("Entrar");
-      alert("Algo deu errado, tente novamente!");
+      alert("Usuário ou senha inválidos!");
     }
   }
 

@@ -19,6 +19,7 @@ export default function SignUp() {
   const [buttonState, setButtonState] = useState(false);
   const { email, name, password, repeatPassword } = infoSignUp;
   const [buttonLoading, setButtonLoading] = useState("Entrar");
+  const [messagedisplay, setMessageDisplay] = useState("none");
 
   async function post(event) {
     event.preventDefault();
@@ -28,15 +29,22 @@ export default function SignUp() {
     console.log("infos: ", infoSignUp);
     try {
       const response = await axios.post(URL, infoSignUp);
-      const { data } = response;
       navigate("/");
     } catch (err) {
-      console.log(err);
+      const { data } = err.response;
+      console.log(data);
       setButtonState(false);
       setButtonLoading("Entrar");
       alert("algo deu errado,tente novamente!");
     }
   }
+  function mostrarMensagem() {
+    setMessageDisplay("block");
+  }
+  function esconderMensagem() {
+    setMessageDisplay("none");
+  }
+
   return (
     <Conteiner>
       <img src={Logo} alt="Logo" />
@@ -62,17 +70,22 @@ export default function SignUp() {
           }
         />
         <input
+          className="passwordInput"
           disabled={buttonState}
           type="password"
           required
           placeholder="senha"
-          title="senha deve ter no minimo 8 caracteres,ao menos uma letra maiuscula, uma minuscula,
-           um numero e um caractere especial(@$!%*?&)"
+          onMouseEnter={mostrarMensagem}
+          onMouseLeave={esconderMensagem}
           value={password}
           onChange={(e) =>
             setInfoSignUp({ ...infoSignUp, password: e.target.value })
           }
         />
+        <DivMessage messagedisplay={messagedisplay}>
+          A senha deve ter no mínimo 8 caracteres, ao menos uma letra maiúscula,
+          uma minuscula, um número e um caractere especial(@$!%*?&)"
+        </DivMessage>
         <input
           disabled={buttonState}
           type="password"
@@ -113,4 +126,8 @@ const Conteiner = styled.div`
   img {
     width: 300px;
   }
+`;
+
+const DivMessage = styled.div`
+  display: ${(props) => props.messagedisplay};
 `;

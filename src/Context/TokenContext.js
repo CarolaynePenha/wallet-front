@@ -4,7 +4,12 @@ import { useState } from "react";
 const TokenContext = createContext();
 
 export function TokenProvider({ children }) {
-  const [token, setToken] = useState();
+  let initialToken = "";
+  const userToken = localStorage.getItem("token");
+  if (userToken) {
+    initialToken = userToken;
+  }
+  const [token, setToken] = useState(initialToken);
   return (
     <TokenContext.Provider value={{ token, setToken }}>
       {children}

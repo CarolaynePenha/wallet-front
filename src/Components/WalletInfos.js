@@ -1,14 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 
 import TokenContext from "../Context/TokenContext";
 import Loading from "./Loading";
 import WalletInfo from "./WalletInfo";
+import { keepConection } from "../keepconection";
 
 export default function WalletInfos() {
   const { token, setToken } = useContext(TokenContext);
+  setInterval(async () => {
+    if (token) {
+      await keepConection(token);
+    }
+  }, 10000);
+
   const [walletInfos, setWalletInfos] = useState(null);
   const [name, setName] = useState();
   const [removeinfos, setRemoveInfos] = useState(false);
@@ -33,7 +40,15 @@ export default function WalletInfos() {
         setWalletInfos(data.infos);
         setName(data.name);
       });
-      promise.catch((err) => console.log(err.response));
+      promise.catch((err) => {
+        console.log(err.response);
+        alert(
+          err.response.status === HttpStatusCode.Unauthorized
+            ? "Sessão do expirada! Faça login novamente."
+            : "Algo deu errado"
+        );
+        navigate("/");
+      });
     }
   }, [token, removeinfos]);
 
