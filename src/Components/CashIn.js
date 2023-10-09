@@ -2,13 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
 
 import { Form } from "./SignIn";
 import Loading from "./Loading";
 import TokenContext from "../Context/TokenContext";
-
-dotenv.config();
 
 export default function CashIn() {
   const { token } = useContext(TokenContext);
@@ -25,7 +22,7 @@ export default function CashIn() {
     event.preventDefault();
     setButtonState(true);
     setButtonLoading(<Loading />);
-    const URL = process.env.API_URL + "/cash-in";
+    const URL = process.env.REACT_APP_API_URL + "/cash-in";
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

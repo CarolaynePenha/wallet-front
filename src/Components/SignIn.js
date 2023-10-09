@@ -2,13 +2,10 @@ import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import dotenv from "dotenv";
 
 import TokenContext from "../Context/TokenContext";
 import Logo from "./../assets/logo.svg";
 import Loading from "./Loading";
-
-dotenv.config();
 
 export default function SignIn() {
   const [infosLogin, setinfosLogin] = useState({ email: "", password: "" });
@@ -21,7 +18,7 @@ export default function SignIn() {
     event.preventDefault();
     setButtonState(true);
     setButtonLoading(<Loading />);
-    const URL = process.env.API_URL + "/sign-in";
+    const URL = process.env.REACT_APP_API_URL + "/sign-in";
     try {
       const response = await axios.post(URL, infosLogin);
       const { data } = response;

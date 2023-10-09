@@ -2,14 +2,11 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
 
 import { Form } from "./SignIn";
 import { ButtonRegisterLogin } from "./SignIn";
 import Loading from "./Loading";
 import Logo from "./../assets/logo.svg";
-
-dotenv.config();
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -28,7 +25,7 @@ export default function SignUp() {
     event.preventDefault();
     setButtonState(true);
     setButtonLoading(<Loading />);
-    const URL = process.env.API_URL + "/sign-up";
+    const URL = process.env.REACT_APP_API_URL + "/sign-up";
     console.log("infos: ", infoSignUp);
     try {
       const response = await axios.post(URL, infoSignUp);

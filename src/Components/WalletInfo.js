@@ -2,11 +2,8 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import axios from "axios";
-import dotenv from "dotenv";
 
 import TokenContext from "../Context/TokenContext";
-
-dotenv.config();
 
 export default function WalletInfo({
   walletinfo,
@@ -29,7 +26,7 @@ export default function WalletInfo({
       confirmButtonText: "Sim, excluir!",
     }).then((result) => {
       if (result.isConfirmed) {
-        const URL = process.env.API_URL + `/cash/${id}`;
+        const URL = process.env.REACT_APP_API_URL + `/cash/${id}`;
         const config = {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -1,6 +1,4 @@
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
 
 export async function keepConection(token) {
   console.log("entrei");
@@ -10,7 +8,7 @@ export async function keepConection(token) {
     },
   };
   const response = await axios.put(
-    process.env.API_URL + "/user-remain",
+    process.env.REACT_APP_API_URL + "/user-remain",
     null,
     config
   );
