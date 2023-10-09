@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
+import dotenv from "dotenv";
 
 import { Form } from "./SignIn";
 import Loading from "./Loading";
 import TokenContext from "../Context/TokenContext";
-import { keepConection } from "../keepconection";
+
+dotenv.config();
 
 export default function CashOut() {
   const { token } = useContext(TokenContext);
@@ -23,7 +25,7 @@ export default function CashOut() {
     event.preventDefault();
     setButtonState(true);
     setButtonLoading(<Loading />);
-    const URL = "http://localhost:5500/cash-out";
+    const URL = process.env.API_URL + "/cash-out";
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,

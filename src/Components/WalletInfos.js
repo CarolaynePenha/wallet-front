@@ -7,6 +7,8 @@ import TokenContext from "../Context/TokenContext";
 import Loading from "./Loading";
 import WalletInfo from "./WalletInfo";
 import { keepConection } from "../keepconection";
+import dotenv from "dotenv";
+dotenv.config();
 
 export default function WalletInfos() {
   const { token, setToken } = useContext(TokenContext);
@@ -24,7 +26,7 @@ export default function WalletInfos() {
 
   let total = 0;
 
-  const URL = "http://localhost:5500/cash";
+  const URL = process.env.API_URL + "/cash";
 
   useEffect(() => {
     if (token) {
