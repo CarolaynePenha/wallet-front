@@ -26,6 +26,7 @@ function App() {
   );
 }
 export default App;
+
 // --------------------------------css
 
 const DivApp = styled.div`
