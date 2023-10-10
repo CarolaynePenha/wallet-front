@@ -66,6 +66,7 @@ export default function WalletInfos() {
       <Conteiner>
         <div className="title">
           <p>Olá, {name}!</p>
+          <ion-icon onClick={() => logOut()} name="log-out-outline"></ion-icon>
         </div>
         <div className="data">
           <p>Você não tem nenhum registro de entrada ou saída!</p>
